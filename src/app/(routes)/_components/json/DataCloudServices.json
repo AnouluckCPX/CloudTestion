@@ -1,0 +1,52 @@
+{
+    "data": [
+        {
+            "id": 0,
+            "type": "Data Center",
+            "des": "We provide Data Center on Cloud services that are safe, save budget and help reduce costs and IT problems as if you have your own Data Center room on the Cloud.Customers can also choose to use both Windows and Linux operating systems, so you can be sure that the system will be ready for use 24 hours a day.",
+            "link": "/"
+        },
+        {
+            "id": 1,
+            "type": "Backup",
+            "des": " Provide Backup to Cloud service as a data backup to be stored outside the organization to prevent data loss or ransomware, supports data backup on a variety of platforms such as NAS backup, data backup software (Veeam or Veritas) and can also back up data via S3 Protocol, no cost to remove data, reducing the chance of data loss.",
+            "link": "/"
+        },
+        {
+            "id": 2,
+            "type": "Disaster Recovery",
+            "des": "Provide Disaster Recovery on Cloud services that will enable your organization's IT system to work continuously when encountering a disaster or unexpected event and you can recover the system yourself quickly.",
+            "link": "/"
+        },
+        {
+            "id": 3,
+            "type": "Co-Location",
+            "des": "It is a service to receive and install your server equipment in the Data Center area of ​​LLT that can control the temperature and humidity of the room, with storage in a good standard environment, with backup power system, fire protection system, security system, with premium high quality internet network, with 24/7 system maintenance courses so that your business can operate efficiently.",
+            "link": "/"
+        },
+        {
+            "id": 4,
+            "type": "LTC-Drive",
+            "des": "LTC Drive (File Sharing) is a service for those who want to store and share personal or organizational data online, can easily access your data anywhere at any time from a variety of devices such as: Smart phone, Tablet, Computer, Notebook using a secure Application or Web Browser and upload/download data quickly, helps to manage data easily by Share File via URL, assigning rights to access data, backup or restore data, can check and limit the usage of each person in your organization.",
+            "link": "/"
+        },
+        {
+            "id": 5,
+            "type": "Cloud Call Center",
+            "des": "Lao Telecom is a leader in Call Center and an expert in developing, designing and installing a comprehensive Cloud Call Center system, as well as providing Outbound and Inbound services with more than 10 years of experience in providing services.",
+            "link": "/"
+        },
+        {
+            "id": 6,
+            "type": "Zimbra",
+            "des": "Zimbra (Mail Server) is an Email service for your organization that has Scan Anti-Virus, Anti-Spam system to make your Email use highly secure and can connect to work through Web mail system, IMAP and POP3 Server. Also, Zimbra (Mail Server) also has a comprehensive work support system such as document management system, work activity management system, work activity calendar system as well.",
+            "link": "/"
+        },
+        {
+            "id": 7,
+            "type": "Cloud PBX",
+            "des": "Cloud PBX Service is a voice communication system service within your organization through the basic telephone system of Lao Telecom, service users do not need to invest in building a branch box system (PABX) can have a voice communication system within their own organization, helping to save the cost of purchasing equipment and maintenance. Main Features: Automatically answer calls, Support transferring calls to internal phone numbers, Can set a key to receive calls and transfer calls, Support IVR, Free calls within the organization, Receive voice messages and notifications to the mailbox.",
+            "link": "/"
+        }
+    ]
+}
