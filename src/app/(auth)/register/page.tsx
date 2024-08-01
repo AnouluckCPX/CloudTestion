@@ -53,7 +53,7 @@ export default function Register({ }: Props) {
     };
 
     return (
-        <div className="mx-auto max-w-7xl py-20 w-[50rem]">
+        <div className="mx-auto max-w-7xl py-28 w-[50rem]">
             <div className='bg-white p-6 shadow-md rounded-lg'>
                 <h2 className='mb-6 text-center font-bold text-xl'>
                     Register

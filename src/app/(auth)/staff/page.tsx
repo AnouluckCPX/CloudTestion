@@ -12,7 +12,7 @@ import { Info } from 'lucide-react';
 type Props = {}
 
 export default function Staff({ }: Props) {
-    const [username, setUsername] = useState<string>('');
+    const [username, setUsername] = useState<string>('luck');
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const Router = useRouter();
@@ -48,7 +48,7 @@ export default function Staff({ }: Props) {
     };
 
     return (
-        <div className="mx-auto max-w-md py-20 ">
+        <div className="mx-auto max-w-md py-28">
             <div className='bg-white p-10 shadow-md rounded-2xl'>
                 <h2 className='pt-3 mb-3 text-center font-black text-2xl'>
                     Staff Login

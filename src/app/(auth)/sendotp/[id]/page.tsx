@@ -20,7 +20,7 @@ export default function Sendotp({ params }: Props) {
     const router = useRouter();
 
 
-    const [password, setPassword] = useState<number | undefined>();
+    const [password, setPassword] = useState<number | undefined>(12345);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
@@ -54,7 +54,7 @@ export default function Sendotp({ params }: Props) {
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <div className="mx-auto max-w-md py-20">
+            <div className="mx-auto max-w-md py-28">
                 <div className='bg-white p-10 shadow-md rounded-2xl'>
                     <div className='flex justify-center'>
                         <Image src='/static/images/landing/otp.svg' alt="otp" width={84} height={84} />

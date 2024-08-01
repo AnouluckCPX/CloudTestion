@@ -10,8 +10,8 @@ import { InputAdornment } from '@mui/material';
 import Link from 'next/link';
 
 export default function Login() {
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const [username, setUsername] = useState<string>('admin');
+    const [password, setPassword] = useState<string>('admin');
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const router = useRouter();
@@ -39,7 +39,7 @@ export default function Login() {
     };
 
     return (
-        <div className="mx-auto max-w-md py-20 ">
+        <div className="mx-auto max-w-md py-28 ">
             <div className='bg-white p-10 rounded-2xl shadow-[0_5px_30px_-15px_rgba(255,255,255,1)]'>
                 <h2 className='pt-3 mb-3 text-center font-black text-2xl'>
                     Login to Cloud LTC
