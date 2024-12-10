@@ -1,100 +1,47 @@
 "use client";
-import React, { useEffect, useState } from "react"
-import { styled } from "@mui/material/styles"
-import Box from "@mui/material/Box"
-import MuiAppBar from "@mui/material/AppBar"
-import Toolbar from "@mui/material/Toolbar"
-import Typography from "@mui/material/Typography"
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import { Button, Container, Menu, MenuItem } from "@mui/material"
-// import { useAppDispatch } from "@/src/store/store";
-// import { signOut } from "@/src/store/slices/userSlice";
-import { useRouter } from "next/navigation"
-import Link from "next/link";
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: prop => prop !== "open"
-})(({ theme }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: 'transparent',
-  width: `100%`,
-  paddingTop: 10,
-  paddingBottom: 10,
-  paddingLeft: 20,
-  paddingRight: 20,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
-  })
-}))
+import React, { useEffect, useRef, useState } from "react"
+import { useRouter, usePathname } from "next/navigation"
+// import Link from "next/link";
+import Image from "next/image";
+import {
+  Navbar, NavbarBrand, NavbarContent, NavbarItem, Link,
+  Button,
+  Menu,
+  MenuItem,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from "@nextui-org/react";
+import { ChevronDown } from "../icons/icon";
+import '../../../../public/static/css/HeaderStyle.css';
+import Loading from "../../(profile)/loading";
 
 type Props = {};
 
 const Header = ({ }: Props) => {
-
-  const router = useRouter()
+  const pathname = usePathname();
+  const router = useRouter();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [subValue, setSubValue] = useState<number | null>(null);
 
-  const handleOpenUserMenu = (
-    event: React.MouseEvent<HTMLElement>, key: number
-  ) => {
-    setAnchorElUser(event.currentTarget);
-    setSubValue(key);
-    if (key === 7) {
-      router.push('/login')
-    }
-  };
-
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  const pages = [
-    {
-      name: 'Hosting',
-      key: 1,
-      bug: true,
-      sub: [
-        { subname: 'Web Hosting', sublink: '/' },
-        { subname: 'Private Hosting', sublink: '/' },
-      ]
-    },
-    {
-      name: 'Cloud',
-      key: 2,
-      bug: true,
-      sub: [
-        { subname: 'Cloud VPS', sublink: '/cloud' },
-        { subname: 'Cloud Enterprise', sublink: '/' },
-      ]
-    },
-    { name: 'Domains', link: '/', key: 3, bug: false, },
-    { name: 'Services', link: '/', key: 4, bug: false, },
-    // { name: 'Payment', link: '/', key: 5, bug: false, },
-    { name: 'Contact', link: '/', key: 6, bug: false, },
-    // { name: 'Login', link: '/login', key: 7, bug: false, },
-  ];
-
+  // console.log(pathname);
   const [changeStyle, setChangeStyle] = useState<any>({
-    backgroundColor: 'transparent',
-    boxShadow: 'none',
-    BorderBottom: 'none',
-    border: true
+    backgroundColor: pathname === '/preorder' ? '' : pathname === '/contact' ? 'bg-background/0' : 'bg-[#00000010]',
+    boxShadow: 'shadow-none',
+    BorderBottom: 'border-none',
   });
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setChangeStyle({
-          backgroundColor: '#ffffff',
-          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 5px 0 rgba(0, 0, 0, 0.1)',
+          backgroundColor: pathname === '/preorder' ? '' : pathname === '/contact' ? 'bg-[#00000010]' : 'backdrop-blur',
+          boxShadow: 'shadow-sm',
         });
       } else {
         setChangeStyle({
-          backgroundColor: 'transparent',
-          boxShadow: 'none',
+          backgroundColor: pathname === '/preorder' ? '' : pathname === '/contact' ? 'bg-background/0' : 'bg-[#00000010]',
+          boxShadow: 'shadow-none',
         });
       }
     };
@@ -103,92 +50,228 @@ const Header = ({ }: Props) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+  }, [pathname, changeStyle]);
+
+  useEffect(() => {
+    window.onbeforeunload = function () {
+      return "Dude, are you sure you want to refresh? Think of the kittens!";
+    }
   }, []);
 
-  return (
-    <AppBar position="fixed"
-      sx={{
-        backgroundColor: changeStyle.backgroundColor,
-        boxShadow: changeStyle.boxShadow,
-        transitionProperty: 'all',
-        transitionTimingFunction: 'ease-in-out',
-        transitionDuration: '200ms',
-      }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'space-between', } }} className="space-x-1">
-            <Button sx={{ color: '#1F2426' }} onClick={() => router.push('/')}>
-              Lao Telecom
-            </Button>
-            <Box>
-              <Box sx={{ flexGrow: 1, display: 'flex', justifyItems: 'center' }}>
-                {pages.map((page) => {
-                  return (
-                    <Box key={page.key}>
-                      <Button
-                        onClick={(event) => handleOpenUserMenu(event, page.key)}
-                        sx={{ my: 2, color: '#1F2426', display: 'block', textTransform: 'none', px: 1.5 }}
-                      >
-                        <Typography variant="body1">
-                          {page.name}
-                          {page.sub && <ExpandMoreRoundedIcon sx={{ ml: .5 }} />}
-                        </Typography>
-                      </Button>
-                    </Box>
-                  )
-                })}
-                <Box sx={{ flexGrow: 1, display: 'flex', ml: 2, marginTop: 2, marginBottom: 2 }}>
-                  <Link
-                    href={'/login'}
-                    style={{ width: '6rem', marginLeft: 1.5, paddingTop: 4, paddingBottom: 3, color: '#ED1C29', display: 'block', textTransform: 'none', border: '2px solid #ED1C29', borderRadius: '7px', textAlign: 'center' }}
-                  >
-                    <Typography variant="body1">Log In</Typography>
-                  </Link>
-                  <Link
-                    href={'/register'}
-                    style={{ width: '6rem', marginLeft: '.5rem', paddingTop: 4, paddingBottom: 3, color: '#ED1C29', display: 'block', textTransform: 'none', border: '2px solid #ED1C29', borderRadius: '7px', textAlign: 'center' }}
-                  >
-                    <Typography variant="body1">Register</Typography>
-                  </Link>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+  const [loading, setLoading] = useState(false);
 
-          {pages.map((page) => {
-            if (page.key === subValue && page.bug === true) {
-              return (
-                <Box key={page.key} sx={{ flexGrow: 0 }}>
-                  <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {page.sub?.map((subItem) => (
-                      <MenuItem key={subItem.subname} onClick={() => router.push(`${subItem.sublink}`)}>
-                        <Typography textAlign="center">{subItem.subname}</Typography>
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </Box>
-              );
-            }
-            return null;
-          })}
-        </Toolbar>
-      </Container>
-    </AppBar>
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (window.performance) {
+      const headerHeight = headerRef.current?.offsetHeight || 0; // Get the header height
+
+      setLoading(true);
+      if (performance.navigation.type == 1) {
+        console.log('This page is reloaded');
+        setTimeout(() => {
+          // router.push('/')
+        }, 700);
+        setLoading(false);
+      } else {
+        console.log('This page is not reloaded');
+        setLoading(true);
+        setTimeout(() => {
+        }, 700);
+        setLoading(false);
+
+      }
+    }
+  }, []);
+
+  if (loading) {
+    return <Loading />
+  }
+
+  const icons = {
+    chevron: <ChevronDown fill="currentColor" size={16} />,
+    recovery: <Image src='/static/images/landing/disaster-recovery.svg' alt='pre' width={22} height={22} />,
+    cloud: <Image src='/static/images/landing/cloud3.svg' alt='pre' width={22} height={22} />,
+    mail: <Image src='/static/images/landing/mail-2.svg' alt='pre' width={22} height={22} />,
+    telephone: <Image src='/static/images/landing/telephone.svg' alt='pre' width={20} height={20} />,
+    backup: <Image src='/static/images/landing/cloud-computing.svg' alt='pre' width={22} height={22} />,
+    location: <Image src='/static/images/landing/location.svg' alt='pre' width={22} height={22} />,
+    drive: <Image src='/static/images/landing/cloud2.svg' alt='pre' width={21} height={21} />,
+    call: <Image src='/static/images/landing/customer-service.svg' alt='pre' width={22} height={22} />,
+    card: <Image src='/static/images/landing/cardd.svg' alt='pre' width={22} height={22} />,
+    bill: <Image src='/static/images/landing/invoice.svg' alt='pre' width={22} height={22} />,
+  };
+
+  return (
+    <Navbar className={`${changeStyle.backgroundColor} ${changeStyle.boxShadow} ${changeStyle.BorderBottom} h-[80px] px-4`}>
+      <NavbarBrand>
+        <Button onClick={() => router.push('/')} className="bg-transparent">
+          <Image src='/static/images/landing/logoLTC.svg' alt='pre' width={110} height={110} />
+        </Button>
+      </NavbarBrand>
+      <NavbarContent className="hidden sm:flex gap-7" justify="center">
+        <Popover placement="bottom">
+          <PopoverTrigger>
+            <Button
+              disableRipple
+              className="p-0 bg-transparent text-base data-[hover=true]:bg-transparent"
+              // endContent={icons.chevron}
+              radius="sm"
+              variant="light"
+            >
+              Services
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div className="grid grid-cols-2 gap-0 w-[540px] h-fit">
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  href='#cloudservice'
+                  startContent={icons.cloud}
+                  description="We provide Data Center on Cloud services that are safe">
+                  Data Center on Cloud
+                </MenuItem>
+              </Menu>
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  startContent={icons.backup}
+                  description="Provide Backup to Cloud service as a data backup to be stored outside">
+                  Backup to Cloud
+                </MenuItem>
+              </Menu>
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  startContent={icons.recovery}
+                  description="Provide Disaster Recovery on Cloud services that will enable IT">
+                  Disaster Recovery to Cloud
+                </MenuItem>
+              </Menu>
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  startContent={icons.location}
+                  description="receive server equipment in the Data Center area of ​​LLT">
+                  Co - Location
+                </MenuItem>
+              </Menu>
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  startContent={icons.drive}
+                  description="File Sharing is a service for those who want to store and share">
+                  LTC - Drive
+                </MenuItem>
+              </Menu>
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  startContent={icons.call}
+                  description="Lao Telecom is a leader in Call Center and an expert in developing">
+                  Cloud Call Center
+                </MenuItem>
+              </Menu>
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  startContent={icons.mail}
+                  description="Mail Server is an Email service for Scan Anti-Virus, Anti-Spam">
+                  Zimbra Mail
+                </MenuItem>
+              </Menu>
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  startContent={icons.telephone}
+                  description="Service is a voice communication system service">
+                  Cloud PBX
+                </MenuItem>
+              </Menu>
+
+            </div>
+          </PopoverContent>
+        </Popover>
+        <NavbarItem>
+          <Link
+            onClick={() => router.push('/about')}
+            color="foreground" aria-current="page" className="cursor-pointer">
+            About Us
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link
+            onClick={() => router.push('/contact')}
+            color="foreground" aria-current="page" className="cursor-pointer">
+            Contact
+          </Link>
+        </NavbarItem>
+        {/* <NavbarItem>
+          <Link
+            onClick={() => router.push('/payment')}
+            color="foreground" aria-current="page" className="cursor-pointer">
+            Payment
+          </Link>
+        </NavbarItem> */}
+        <Popover placement="bottom">
+          <PopoverTrigger>
+            <Button
+              disableRipple
+              className="p-0 bg-transparent text-base data-[hover=true]:bg-transparent"
+              // endContent={icons.chevron}
+              radius="sm"
+              variant="light"
+            >
+              Payment
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <div className="flex flex-col gap-0 w-[300px] h-fit">
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  onClick={() => router.push('/prepayment')}
+                  startContent={icons.card}
+                  description="We provide Data Center on Cloud services that are safe">
+                  Payment Channels
+                </MenuItem>
+              </Menu>
+              <Menu itemClasses={{ title: 'font-medium' }}>
+                <MenuItem
+                  className="menubg"
+                  onClick={() => router.push('/prepaymentconfirm')}
+                  startContent={icons.bill}
+                  description="Provide Backup to Cloud service as a data backup to be stored outside">
+                  Confirm Payment
+                </MenuItem>
+              </Menu>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <NavbarItem>
+          <Link color="foreground" href="#">
+            Manual
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarContent justify="end">
+        <NavbarItem>
+          <Button
+            // style={{ width: '6rem', background: '#C5C5C5', color: '#fff', borderRadius: '7px' }}
+            as={Link} href={'/register'} variant="light" className="text-base">
+            Sign Up
+          </Button>
+        </NavbarItem>
+        <NavbarItem>
+          <Button
+            style={{ width: '6rem', color: '#ED1C29', border: '2px solid #ED1C29', borderRadius: '7px' }}
+            as={Link} href={'/login'} variant="light" className="text-base">
+            Login
+          </Button>
+        </NavbarItem>
+      </NavbarContent>
+    </Navbar>
   );
 };
 

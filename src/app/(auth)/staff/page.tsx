@@ -3,19 +3,28 @@ import { OutlinedInput, Popover, } from '@mui/material'
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { ButtonLoading, ButtonSecondary } from '../../_components/ui/button';
-import { UserLoginReq, UserLoginRes } from '../../api/login/user.models';
 import { SquareUserRound } from 'lucide-react';
 import { InputAdornment } from '@mui/material';
-import { authlogin } from './api';
 import { Info } from 'lucide-react';
+import { useAuthStore } from '@/src/store/authStore';
+import dynamic from 'next/dynamic';
+import Link from 'next/link'
+import { messageError } from '../../_components/notification/message';
+
+// const DynamicMap = dynamic(
+//     () => import('../../_components/common/Map'),
+//     {
+//         ssr: false,
+//         loading: () => <p>Loading...</p>,
+//     }
+// )
 
 type Props = {}
 
 export default function Staff({ }: Props) {
-    const [username, setUsername] = useState<string>('luck');
+    const [username, setUsername] = useState<string>('VTE4525');
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string>('');
-    const Router = useRouter();
+    const router = useRouter();
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -29,30 +38,38 @@ export default function Staff({ }: Props) {
 
     const open = Boolean(anchorEl);
 
+    const { sendOtp } = useAuthStore();
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setLoading(true);
-        const loginData: UserLoginReq = { username };
 
         try {
-            const response: UserLoginRes = await authlogin(loginData);
-            if (response.resultCode === 200) {
-                setLoading(false);
-                Router.push(`/sendotp/${encodeURIComponent(username)}`)
+            const response = await sendOtp(username);
+
+            if (!response.error) {
+                // router.push(`/sendotp/${username}`)
+                router.push(`/sendotp/${username}`);
             } else {
-                setError('Login failed.');
+                // console.error('Error:', response.error);
+                messageError({
+                    label: `${response.error}, Please try again later.`
+                })
             }
         } catch (error) {
             console.log('An error occurred during login.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="mx-auto max-w-md py-28">
+        <div className="mx-auto max-w-md py-36">
             <div className='bg-white p-10 shadow-md rounded-2xl'>
                 <h2 className='pt-3 mb-3 text-center font-black text-2xl'>
                     Staff Login
                 </h2>
+
                 <p className='text-center mb-3 text-[#777]'>Only enter employee ID to get sign in <br /> to your account</p>
                 <form onSubmit={handleSubmit}>
                     <div className="text-left">
@@ -98,7 +115,7 @@ export default function Staff({ }: Props) {
                     </div>
 
                     <ButtonSecondary className='w-full text-base  text-[#1F2426] border-[1px] border-solid border-[#777]'
-                        onClick={() => Router.push('/login')}>
+                        onClick={() => router.push('/login')}>
                         Customer Login
                     </ButtonSecondary>
 

@@ -8,10 +8,11 @@ import { customerlogin } from './api';
 import { CircleUserRound, Lock } from 'lucide-react';
 import { InputAdornment } from '@mui/material';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Login() {
-    const [username, setUsername] = useState<string>('admin');
-    const [password, setPassword] = useState<string>('admin');
+    const [username, setUsername] = useState<string>('anouluck');
+    const [password, setPassword] = useState<string>('anouluck');
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const router = useRouter();
@@ -39,7 +40,7 @@ export default function Login() {
     };
 
     return (
-        <div className="mx-auto max-w-md py-28 ">
+        <div className="mx-auto max-w-md py-36 ">
             <div className='bg-white p-10 rounded-2xl shadow-[0_5px_30px_-15px_rgba(255,255,255,1)]'>
                 <h2 className='pt-3 mb-3 text-center font-black text-2xl'>
                     Login to Cloud LTC
@@ -112,7 +113,8 @@ export default function Login() {
 
                     <ButtonSecondary className='w-full text-base  text-[#1F2426] border-[1px] border-solid border-[#777]'
                         onClick={() => router.push('/staff')}>
-                        Staff Login
+                        <Image src='/static/images/landing/google.svg' alt="cloud icon" width={20} height={20} className='mr-1 ' />
+                        Sign in with Google
                     </ButtonSecondary>
 
                     <p className='text-center mt-7 text-[#777] text-sm'>Dont have an account?

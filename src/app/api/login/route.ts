@@ -7,7 +7,7 @@ export async function POST(request: Request) {
         const { username } = body;
         // console.log(username);
         const mapUser = {
-            username: 'luck',
+            username: 'VTE4525',
         };
 
         if (username === mapUser.username) {

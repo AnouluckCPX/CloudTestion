@@ -12,6 +12,7 @@ import cloudIcon from '@/public/static/images/profile/cloud-0.png'
 import { CustomCardBorder } from '../../_components/ui/card';
 import CardTransaction from './_component/CardTransaction';
 import CardHeader from './_component/CardHeader';
+import { useAuthStore } from '@/src/store/authStore';
 
 type Props = {}
 
@@ -23,7 +24,9 @@ const CustomContainer = styled(Container)(({ theme }) => ({
 
 export default function Information({ }: Props) {
     const dispatch = useAppDispatch()
-    const { profile, loading, error } = useSelector(profileSelector)
+    const { profile, error } = useSelector(profileSelector)
+
+    const { user, loading } = useAuthStore()
 
     useEffect(() => {
         setTimeout(() => {
@@ -31,20 +34,15 @@ export default function Information({ }: Props) {
         }, 500);
     }, [dispatch]);
 
-    if (loading === true) {
+    if (loading) return <Loading />;
 
-        return <Loading />;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <section>
             <Box className='h-[400px] bg-header px-28'>
                 <Container maxWidth="xl" className='pt-[10rem]'>
-                    <h1 className='text-xl font-bold'>Hello, <span>{profile?.username}</span> <span>{profile?.lastname}!</span></h1>
+                    <h1 className='text-xl font-bold'>Hello, <span>{user?.fname_en}</span> <span>{user?.lname_en}!</span></h1>
                     <p>Complete the essential actions all from one page.</p>
                     <Box display='flex' justifyContent='space-between'>
                         <Box>

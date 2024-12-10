@@ -50,6 +50,24 @@ const CustomButtonSecondary = styled(Button)(({ theme }) => ({
     },
 }));
 
+const CustomButtonApple = styled(Button)(({ theme }) => ({
+    backgroundColor: '#727568',
+    marginTop: '10px',
+    textAlign: 'left',
+    fontWeight: 'medium',
+    color: '#fff',
+    fontSize: '16px',
+    height: '40px',
+    boxShadow: 'none',
+    borderRadius: '7px',
+    textTransform: 'none',
+    '&:hover': {
+        backgroundColor: '#868A7B',
+        color: '#fff',
+        boxShadow: 'none',
+    },
+}));
+
 interface ButtonLoadingProps extends ButtonProps {
     children: ReactNode;
     loading?: boolean;
@@ -60,15 +78,7 @@ interface ButtonLoadingProps extends ButtonProps {
     };
 }
 
-interface ButtonPrimaryProps extends ButtonProps {
-    children: ReactNode;
-    classes?: {
-        root?: string | undefined;
-        label?: string | undefined;
-    };
-}
-
-interface ButtonSecondaryProps extends ButtonProps {
+interface ButtonPrimary extends ButtonProps {
     children: ReactNode;
     classes?: {
         root?: string | undefined;
@@ -84,7 +94,7 @@ export const ButtonLoading: React.FC<ButtonLoadingProps> = ({ children, classes,
     );
 };
 
-export const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ children, classes, ...props }) => {
+export const ButtonPrimary: React.FC<ButtonPrimary> = ({ children, classes, ...props }) => {
     return (
         <CustomButtonPrimary {...props} classes={classes}>
             {children}
@@ -92,10 +102,18 @@ export const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({ children, classes,
     );
 };
 
-export const ButtonSecondary: React.FC<ButtonSecondaryProps> = ({ children, classes, ...props }) => {
+export const ButtonSecondary: React.FC<ButtonPrimary> = ({ children, classes, ...props }) => {
     return (
         <CustomButtonSecondary {...props} classes={classes}>
             {children}
         </CustomButtonSecondary>
+    );
+};
+
+export const ButtonApple: React.FC<ButtonPrimary> = ({ children, classes, ...props }) => {
+    return (
+        <CustomButtonApple {...props} classes={classes}>
+            {children}
+        </CustomButtonApple>
     );
 };

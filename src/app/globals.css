@@ -17,6 +17,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   /* color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -33,4 +37,19 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.border-ddd-rounded-xl {
+  @apply border border-solid border-[#ddd] rounded-xl;
+}
+
+nav {
+  --tw-backdrop-saturate: saturate(0%) !important;
+  backdrop-filter: blur(0) !important;
 }
