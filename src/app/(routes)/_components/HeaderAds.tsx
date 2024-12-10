@@ -4,6 +4,7 @@ import React from 'react'
 import { ButtonPrimary } from '../../_components/ui/button'
 import cloudIcon from '@/public/static/images/landing/Cloud-ss.svg'
 import Image from 'next/image'
+import ShiningButton from '../../_components/ui/shining-button'
 
 type Props = {}
 
@@ -17,15 +18,13 @@ export default function HeaderAds({ }: Props) {
             </div>
 
             {/* ----- content */}
-            <div className='text-center pt-[8rem]'>
+            <div className='text-center pt-[4rem]'>
                 <h2 className='text-3xl font-black'>Cloud Storage Elevated</h2>
                 <h1 className='text-4xl font-black pt-2'>For Your Work</h1>
-                <p className='leading-6 pt-3'>Share processes and data securely on a need to know basis without <br />
+                <p className='leading-6 pt-3 mb-4'>Share processes and data securely on a need to know basis without <br />
                     the need for reconciliation it combines a permission</p>
 
-                <ButtonPrimary className='w-[200px] font-semibold rounded-lg'>
-                    Start Free Trial
-                </ButtonPrimary>
+                <ShiningButton label='Start Free Trial 14 days' />
 
                 <Box display={'flex'} justifyContent={'center'} mt={4}>
                     <div className='relative'>

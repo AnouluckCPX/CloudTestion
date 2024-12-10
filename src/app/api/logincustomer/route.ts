@@ -14,8 +14,8 @@ export async function POST(request: Request) {
         const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });
 
         const mapUser = {
-            username: 'admin',
-            password: 'admin',
+            username: 'anouluck',
+            password: 'anouluck',
         };
 
         if (username === mapUser.username && password === mapUser.password) {

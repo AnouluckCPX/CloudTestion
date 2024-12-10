@@ -3,6 +3,7 @@ import Grid from '@mui/material/Unstable_Grid2/Grid2'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import AnimatedBorderTrail from '../../_components/ui/animated-border-trail'
 
 
 
@@ -34,6 +35,7 @@ export default function OurServices({ }) {
                 <Image src='/static/images/landing/bg-line-2.png' alt="bg-line-2" width={1500} height={500} className='w-full h-[40rem] object-cover' />
             </div>
             <Container maxWidth="lg" className='pt-24 z-10'>
+
                 <h1 className='text-3xl text-center font-black text-white'>Our Best Service</h1>
                 <p className='text-center text-white text-base pt-2 pb-6'>Introducing new services to help your business and we provide the best services for our customer.</p>
                 <Box sx={{ mt: 4 }}>
@@ -43,17 +45,22 @@ export default function OurServices({ }) {
                                 return (
                                     <Grid xs={4} key={key}>
                                         <Box key={index}>
-                                            <Card sx={{ height: 300 }} className='px-4 rounded-xl border-2 border-black'>
-                                                <CardContent className='text-center'>
-                                                    <Box display={'flex'} justifyContent={'center'} className='pb-3 pt-3'>
-                                                        <Image src='/static/images/landing/check-red.svg' alt="check red" width={38} height={38} />
+                                            <AnimatedBorderTrail
+                                                className="bg-zinc-900 hover:bg-zinc-400 drop-shadow-[0_5px_17px_rgba(143,239,172,0.6)]"
+                                                contentClassName="bg-[#470909]"
+                                                trailColor="white"
+                                                trailSize="xl"
+                                            >
+                                                <div className="h-[300px] text-balance p-4  text-center font-medium ">
+                                                    <Box display={'flex'} justifyContent={'center'} className='pb-3 pt-6'>
+                                                        <Image src='/static/images/landing/check-green.svg' alt="check red" width={32} height={32} />
                                                     </Box>
-                                                    <Typography variant='h6' className='font-bold pb-3'>{name}</Typography>
-                                                    <Typography className='text-[#1F2426]'>
+                                                    <Typography variant='h6' className='font-bold pb-3 text-[#22E76A]'>{name}</Typography>
+                                                    <Typography className='text-gray-300'>
                                                         {des}
                                                     </Typography>
-                                                </CardContent>
-                                            </Card>
+                                                </div>
+                                            </AnimatedBorderTrail>
                                         </Box>
                                     </Grid>
                                 )

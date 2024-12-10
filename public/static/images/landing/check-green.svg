@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="uuid-2ef0b78f-9b5d-492e-99e7-7144c9263de3" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 44 44">
+  <defs>
+    <clipPath id="uuid-e3bf661f-8f55-4766-8066-772da7435f08">
+      <rect width="44" height="44" fill="none"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#uuid-e3bf661f-8f55-4766-8066-772da7435f08)">
+    <path d="M22,0C9.92,0,0,9.92,0,22s9.92,22,22,22,22-9.92,22-22S34.08,0,22,0Zm-2.66,32.01l-9.63-9.63,3.65-3.65,6.16,6.16,12.36-11.24,3.47,3.81-16,14.54Z" fill="#22e76a"/>
+  </g>
+</svg>

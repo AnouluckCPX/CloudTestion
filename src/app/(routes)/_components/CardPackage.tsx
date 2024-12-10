@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button, Container, Divider, Stack, Typography, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/navigation'
+import { usePackageOutStore } from '@/src/store/packageOutStore';
 
 type Props = {}
 
@@ -96,9 +97,13 @@ export default function CardPackage({ }: Props) {
     const [listCloud, setListCloud] = useState<Package[]>([]);
     const router = useRouter();
 
+    const { getListPackage, packages } = usePackageOutStore();
+
     useEffect(() => {
-        setListCloud(packageList.data);
+        getListPackage();
     }, []);
+
+
 
     return (
         <Container maxWidth="xl" className='mt-[8rem] px-[5rem]'>
@@ -113,45 +118,45 @@ export default function CardPackage({ }: Props) {
                     useFlexGap
                     flexWrap="wrap">
                     {
-                        listCloud.map((item, index) => {
-                            if (index === 1) {
+                        packages?.filter((item) => item?.status === 1)?.map((item, index) => {
+                            if (index === 4) {
                                 return (
-                                    <Box sx={boxPopularStyles} width={320} key={item.id}>
+                                    <Box sx={boxPopularStyles} width={320} key={item.p_id}>
                                         <Typography variant="subtitle1" sx={boxPopularStyles.header} className='pt-[7px]'>
                                             MOST POPULAR
                                         </Typography>
                                         <Box sx={boxPopularStyles.box}>
-                                            <h2 className='mt-10 mb-0 font-bold'>{item.name}</h2>
-                                            {
-                                                item.list.map((sub, i) => {
+                                            <h2 className='mt-10 mb-0 font-bold'>{item.topic}</h2>
+                                            <div>
+                                                <Typography variant='body2' className='mt-1 text-sm h-[35px] text-[#777]'>{packageList.des2}</Typography>
+                                                <h1 className='text-4xl mt-4 mb-3 font-extrabold'><span className='text-lg'>₭ </span>{item.price?.toLocaleString()}<span className='ml-0.5 text-base'>/mo</span></h1>
+                                                <Divider className='border-1 border-[#ddd] mb-5' />
+                                                <CustomButton
+                                                    onClick={() => router.push(`/preorder?id=${item.p_id}&name=${item.topic}`)}
+                                                    variant="outlined" disableRipple sx={{ textTransform: "none" }} fullWidth>
+                                                    Choose Plan
+                                                </CustomButton>
+                                                <p className='flex items-center mt-4'>
+                                                    <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
+                                                    <span className='px-1.5 font-bold'>{item.cpu} </span> core vCPU</p>
+                                                <p className='flex items-center'>
+                                                    <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
+                                                    <span className='px-1.5 font-bold'>{item.memory}</span> GB RAM</p>
+                                                <p className='flex items-center'>
+                                                    <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
+                                                    <span className='px-1.5 font-bold'>{item.disk}</span> GB Disk</p>
+                                                <p className='flex items-center'>
+                                                    <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
+                                                    <span className='px-1.5 font-bold'>{item.ip}</span> IP Address</p>
+                                                {item.options.map((sub, i) => {
                                                     return (
                                                         <div key={i}>
-                                                            <Typography variant='body2' className='mt-1 text-sm h-[35px] text-[#777]'>{sub.des}</Typography>
-                                                            <h1 className='text-4xl mt-4 mb-3 font-extrabold'><span className='text-lg'>₭ </span>{sub.price?.toLocaleString()}<span className='ml-0.5 text-base'>/mo</span></h1>
-                                                            <Divider className='border-1 border-indigo-200 mb-5' />
-                                                            <CustomButton
-                                                                onClick={() => router.push('/preorder')}
-                                                                variant="outlined" disableRipple sx={{ textTransform: "none" }} fullWidth>
-                                                                Choose Plan
-                                                            </CustomButton>
-                                                            <p className='flex items-center mt-4'>
-                                                                <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5 font-bold'>{sub.cpu} </span> core vCPU</p>
-                                                            <p className='flex items-center'>
-                                                                <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5 font-bold'>{sub.ram}</span> GB RAM</p>
-                                                            <p className='flex items-center'>
-                                                                <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5 font-bold'>{sub.disk}</span> GB Disk</p>
-                                                            <p className='flex items-center'>
-                                                                <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5 font-bold'>{sub.ip}</span> IP Address</p>
                                                             <p className='flex items-center'>
                                                                 <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
                                                                 <span className='px-1.5'>Firewall </span>{sub.firewall}</p>
                                                             <p className='flex items-center'>
                                                                 <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5'>Backup</span> {sub.back} </p>
+                                                                <span className='px-1.5'>Backup</span> {sub.backup_on_site} </p>
                                                             <p className='flex items-center'>
                                                                 <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
                                                                 <span className='px-1.5 font-bold'>{sub.bandwidth}</span>
@@ -162,46 +167,50 @@ export default function CardPackage({ }: Props) {
                                                                 Migration</p>
                                                         </div>
                                                     )
-                                                })
-                                            }
+                                                })}
+                                            </div>
                                         </Box>
                                     </Box>
                                 )
                             } else {
                                 return (
-                                    <Box key={item.id} sx={boxStyles} width={320}>
-                                        <Box sx={boxStyles.box}>
-                                            <h2 className='mt-10 mb-0 font-bold'>{item.name}</h2>
-                                            {
-                                                item.list.map((sub, i) => {
+                                    <Box key={index} sx={boxStyles} width={320}>
+                                        <Box sx={boxPopularStyles.box}>
+                                            <h2 className='mt-10 mb-0 font-bold'>{item.topic}</h2>
+                                            <div>
+                                                <Typography variant='body2' className='mt-1 text-sm h-[35px] text-[#777]'>
+                                                    {
+                                                        index === 0 || index !== 4 ? packageList.des1 : packageList.des3
+                                                    }
+                                                </Typography>
+                                                <h1 className='text-4xl mt-4 mb-3 font-extrabold'><span className='text-lg'>₭ </span>{item.price?.toLocaleString()}<span className='ml-0.5 text-base'>/mo</span></h1>
+                                                <Divider className='border-1 border-[#ddd] mb-5' />
+                                                <CustomButton
+                                                    onClick={() => router.push(`/preorder?id=${item.p_id}&name=${item.topic}`)}
+                                                    variant="outlined" disableRipple sx={{ textTransform: "none" }} fullWidth>
+                                                    Choose Plan
+                                                </CustomButton>
+                                                <p className='flex items-center mt-4'>
+                                                    <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
+                                                    <span className='px-1.5 font-bold'>{item.cpu} </span> core vCPU</p>
+                                                <p className='flex items-center'>
+                                                    <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
+                                                    <span className='px-1.5 font-bold'>{item.memory}</span> GB RAM</p>
+                                                <p className='flex items-center'>
+                                                    <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
+                                                    <span className='px-1.5 font-bold'>{item.disk}</span> GB Disk</p>
+                                                <p className='flex items-center'>
+                                                    <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
+                                                    <span className='px-1.5 font-bold'>{item.ip}</span> IP Address</p>
+                                                {item.options.map((sub, i) => {
                                                     return (
                                                         <div key={i}>
-                                                            <Typography variant='body2' className='mt-1 text-sm h-[35px] text-[#777]'>{sub.des}</Typography>
-                                                            <h1 className='text-4xl mt-4 mb-3 font-extrabold'><span className='text-lg'>₭ </span>{sub.price?.toLocaleString()}<span className='ml-0.5 text-base'>/mo</span></h1>
-                                                            <Divider className='border-1 border-indigo-200 mb-5' />
-                                                            <CustomButton
-                                                                onClick={() => router.push('/preorder')}
-                                                                variant="outlined" disableRipple sx={{ textTransform: "none" }} fullWidth>
-                                                                Choose Plan
-                                                            </CustomButton>
-                                                            <p className='flex items-center mt-4'>
-                                                                <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5 font-bold'>{sub.cpu} </span> core vCPU</p>
-                                                            <p className='flex items-center'>
-                                                                <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5 font-bold'>{sub.ram}</span> GB RAM</p>
-                                                            <p className='flex items-center'>
-                                                                <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5 font-bold'>{sub.disk}</span> GB Disk</p>
-                                                            <p className='flex items-center'>
-                                                                <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5 font-bold'>{sub.ip}</span> IP Address</p>
                                                             <p className='flex items-center'>
                                                                 <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
                                                                 <span className='px-1.5'>Firewall </span>{sub.firewall}</p>
                                                             <p className='flex items-center'>
                                                                 <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
-                                                                <span className='px-1.5'>Backup</span> {sub.back} </p>
+                                                                <span className='px-1.5'>Backup</span> {sub.backup_on_site} </p>
                                                             <p className='flex items-center'>
                                                                 <Image src={checkIcon} width={24} height={24} alt='check' className='pr-2.5' />
                                                                 <span className='px-1.5 font-bold'>{sub.bandwidth}</span>
@@ -212,8 +221,8 @@ export default function CardPackage({ }: Props) {
                                                                 Migration</p>
                                                         </div>
                                                     )
-                                                })
-                                            }
+                                                })}
+                                            </div>
                                         </Box>
                                     </Box>
                                 )

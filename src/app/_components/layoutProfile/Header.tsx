@@ -6,12 +6,9 @@ import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { Button, Container, Menu, MenuItem, Avatar, Badge, Divider } from "@mui/material"
-// import { useAppDispatch } from "@/src/store/store";
-// import { signOut } from "@/src/store/slices/userSlice";
 import { useRouter } from "next/navigation"
 import { usePathname } from 'next/navigation'
-import { Element, Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
-import Link from "next/link";
+import { useAuthStore } from "@/src/store/authStore";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: prop => prop !== "open"
@@ -126,6 +123,8 @@ const Header = ({ }: Props) => {
     };
   }, [path]);
 
+  const { user, logOut, message } = useAuthStore();
+
   return (
     <AppBar position="fixed"
       style={{
@@ -158,11 +157,11 @@ const Header = ({ }: Props) => {
                 )
               })}
             </Box>
-            <Box>
+            <Box component={'div'} className="pt-1.5">
               <Box sx={{ my: 1 }}>
                 <Button
                   onClick={handleOpenUserMenu}
-
+                  className="gap-4 normal-case text-black"
                 >
                   <StyledBadge
                     overlap="circular"
@@ -171,6 +170,7 @@ const Header = ({ }: Props) => {
                   >
                     <Avatar sx={{ width: 34, height: 34 }} alt="Remy Sharp" src="" />
                   </StyledBadge>
+                  <p><span className="uppercase">{user?.emp_code}</span> - {user?.fname_en}</p>
                 </Button>
               </Box>
             </Box>
@@ -202,9 +202,15 @@ const Header = ({ }: Props) => {
               <MenuItem>
                 <Typography textAlign="left">Help</Typography>
               </MenuItem>
-              <Link href={'/'}>
+              <MenuItem onClick={
+                async () => {
+                  await logOut();
+                  if (message === "logout")
+                    router.push("/");
+                }
+              }>
                 <Typography textAlign="left" className="pl-4">Logout</Typography>
-              </Link>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

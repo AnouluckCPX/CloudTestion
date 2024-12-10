@@ -53,135 +53,154 @@ export default function Register({ }: Props) {
     };
 
     return (
-        <div className="mx-auto max-w-7xl py-20 w-[50rem]">
+        <div className="mx-auto max-w-7xl py-36 w-[50rem]">
             <div className='bg-white p-6 shadow-md rounded-lg'>
                 <h2 className='mb-6 text-center font-bold text-xl'>
                     Register
                 </h2>
 
                 <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid xs={6}>
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>Username</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="username"
-                                    value={initialValue.username}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>Last Name</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="lastname"
-                                    value={initialValue.lastname}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>Password</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="password"
-                                    value={initialValue.password}
-                                    onChange={handleChange}
-                                    required
-                                    type="password"
-                                />
-                            </div>
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>ID Card</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="id_card"
-                                    value={initialValue.id_card}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>Nationality</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="nationality"
-                                    value={initialValue.nationality}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                        </Grid>
-                        <Grid xs={6}>
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>City</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="city"
-                                    value={initialValue.city}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>District</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="district"
-                                    value={initialValue.district}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
+                    <div className='grid grid-cols-2 gap-y-1 gap-x-5'>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>Username</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="username"
+                                value={initialValue.username}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>Last Name</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="lastname"
+                                value={initialValue.lastname}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>Password</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="password"
+                                value={initialValue.password}
+                                onChange={handleChange}
+                                required
+                                type="password"
+                            />
+                        </div>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>Confirm Password</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="password"
+                                value={initialValue.password}
+                                onChange={handleChange}
+                                required
+                                type="password"
+                            />
+                        </div>
+                        {/* <div className="text-left mt-2">
+                            <p className='mb-1.5'>E-mail</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="id_card"
+                                value={initialValue.id_card}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div> */}
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>Nationality</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="nationality"
+                                value={initialValue.nationality}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>City</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="city"
+                                value={initialValue.city}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>District</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="district"
+                                value={initialValue.district}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
 
 
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>Province</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="province"
-                                    value={initialValue.province}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>Telephone</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="telephone"
-                                    value={initialValue.telephone}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>Province</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="province"
+                                value={initialValue.province}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>Telephone</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="telephone"
+                                value={initialValue.telephone}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
 
-                            <div className="text-left mt-2">
-                                <p className='mb-1.5'>Village</p>
-                                <OutlinedInput
-                                    fullWidth
-                                    size='small'
-                                    name="village"
-                                    value={initialValue.village}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                        </Grid>
-                    </Grid>
-                    <p className='text-center mt-3'>
-                        By creating an account, I agree with the <span className='text-blue-500'>Terms of Service</span> and <span className='text-blue-500'>Privacy Policy</span>
+                        <div className="text-left mt-2">
+                            <p className='mb-1.5'>Village</p>
+                            <OutlinedInput
+                                sx={{ borderRadius: '7px' }}
+                                fullWidth
+                                size='small'
+                                name="village"
+                                value={initialValue.village}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    </div>
+                    <p className='text-center mt-7'>
+                        By creating an account, I agree with the <span className='text-indigo-600'>Terms of Service</span> and <span className='text-indigo-600'>Privacy Policy</span>
                     </p>
 
                     <ButtonLoading sx={{ marginTop: '20px', color: '#fff' }} fullWidth
